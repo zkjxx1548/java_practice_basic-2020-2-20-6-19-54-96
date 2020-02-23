@@ -17,33 +17,7 @@ public class App {
         File f5 = new File("S:\\java\\test\\to");
         FileUtil.copyDirectory(f4, f5);
 
-        /*try {
 
-            File file = new File(f6 + "\\" + f2.getName());
-
-            //创建一个新文件
-
-            boolean fvar = file.createNewFile();
-
-            if (fvar){
-
-                System.out.println("File has been created successfully");
-
-            }
-
-            else{
-
-                System.out.println("File already present at the specified location");
-
-            }
-
-        } catch (IOException e) {
-
-            System.out.println("Exception Occurred:");
-
-            e.printStackTrace();
-
-        }*/
         //printFiles(f1.listFiles());
         /*byte[] data = { 72, 101, 108, 108, 111, 33 };
         try (InputStream input = new ByteArrayInputStream(data)) {

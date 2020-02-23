@@ -85,8 +85,7 @@ class FileUtilTest {
         File from = FROM_PATH.toFile();
         File to = TO_PATH.toFile();
         commonCreate();
-        //createFile(TO_PATH, "8.txt", "888");//原本
-        createFile(FROM_PATH, "8.txt", "888");//修改
+        createFile(TO_PATH, "8.txt", "888");
 
         FileUtil.copyDirectory(from, to);
 
