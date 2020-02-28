@@ -4,20 +4,9 @@ import java.io.*;
 
 public class App {
     public static void main(String[] args) throws IOException {
-        File f1 = new File("S:\\java");
-        File f2 = new File("S:\\java\\from.txt");
-        File f3 = new File("S:\\java\\to.txt");
-        System.out.println(f1.isFile());
-        System.out.println(f1.isDirectory());
-        System.out.println(f1.getName());
-        System.out.println(f2.isFile());
-        System.out.println(f2.isDirectory());
-        System.out.println(f2.getName());
-        File f4 = new File("S:\\java\\test\\from");
-        File f5 = new File("S:\\java\\test\\to");
-        FileUtil.copyDirectory(f4, f5);
-
-
+        String sep = File.separator;
+        File file = new File("E:" + sep + "TW" + sep + "test");
+        FileUtil.emptyFile(file);
         //printFiles(f1.listFiles());
         /*byte[] data = { 72, 101, 108, 108, 111, 33 };
         try (InputStream input = new ByteArrayInputStream(data)) {

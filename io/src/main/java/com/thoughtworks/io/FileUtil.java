@@ -49,7 +49,7 @@ public class FileUtil {
                 emptyFile(f);
             }
         }
-        return true;
+        return file.delete();
     }
     /*
      *文件复制
