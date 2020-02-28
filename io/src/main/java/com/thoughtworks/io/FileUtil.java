@@ -2,6 +2,7 @@ package com.thoughtworks.io;
 
 import java.io.*;
 import java.nio.channels.FileChannel;
+import java.util.Objects;
 
 public class FileUtil {
 
@@ -20,8 +21,9 @@ public class FileUtil {
         if (from.isFile()) {
             copyFile(from, to);
         } else {
-            for (File file : from.listFiles()) {
-                File toFile = new File(to + "\\" + file.getName());
+            String separator = File.separator;
+            for (File file : Objects.requireNonNull(from.listFiles())) {
+                File toFile = new File(to + separator + file.getName());
                 if (file.isDirectory()) {
                     toFile.mkdirs();
                 }
@@ -43,7 +45,7 @@ public class FileUtil {
         if (file.isFile()) {
             file.delete();
         } else {
-            for (File f : file.listFiles()) {
+            for (File f : Objects.requireNonNull(file.listFiles())) {
                 emptyFile(f);
             }
         }
@@ -51,44 +53,18 @@ public class FileUtil {
     }
     /*
      *文件复制
-     *
+     *使用Channel的transferFrom方法
      *
      */
-    public static boolean copyFile(File from, File to) throws IOException {
+    public static void copyFile(File from, File to) {
         if (!from.exists() || from.isDirectory()) {
-            return false;
+            return;
         }
-        //使用Channel的transferFrom方法
-        try {
-            FileChannel fileIn = new FileInputStream(from).getChannel();
-            FileChannel fileOut = new FileOutputStream(to).getChannel();
+        try (FileChannel fileIn = new FileInputStream(from).getChannel();
+             FileChannel fileOut = new FileOutputStream(to).getChannel())
+        {
             fileIn.transferTo(0, fileIn.size(), fileOut);
-            fileIn.close();
-            fileOut.close();
         } catch (IOException e) {
-            return false;
         }
-        return true;
-
-        //使用FileStreams复制
-        /*InputStream input = null;
-        OutputStream output = null;
-        try {
-            input = new FileInputStream(from);
-            output = new FileOutputStream(to);
-            byte[] buf = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = input.read(buf)) > 0) {
-                output.write(buf, 0, bytesRead);
-            }
-        } finally {
-            if (input != null) {
-                input.close();
-            }
-            if (output != null) {
-                output.close();
-            }
-        }*/
-
     }
 }
